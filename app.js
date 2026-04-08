@@ -9,8 +9,6 @@ app.use(express.json());
 
 //  routes
 app.use("/api/auth", authrouter);
-
-
 //  http://localhost:5000/api/auth/signup
 
 export default app;

@@ -1,3 +1,4 @@
+import { genToken } from "../../utils/genToken.js";
 import { Auth } from "../models/auth.schema.js";
 
 export const signup = async (req, res, next) => {
@@ -52,10 +53,22 @@ export const signin = async (req, res, next) => {
         message: "password is incorrect",
       });
     }
-    return res.status(200).json({
-      message: "signin successfully",
-      data: user._id,
-    });
+
+    //  token generation
+    const token = await genToken(user._id, user.userName);
+
+    return res
+      .cookie("token", token, {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000,
+      })
+      .status(200)
+      .json({
+        message: "signin successfully",
+        data: user._id,
+      });
   } catch (err) {
     return res.status(500).json({
       message: err.message,
