@@ -9,6 +9,7 @@ export const signup = async (req, res, next) => {
         message: "All fields are required",
       });
     }
+ 
     const isUserExist = await Auth.findOne({ email: email });
     if (isUserExist) {
       return res.status(400).json({

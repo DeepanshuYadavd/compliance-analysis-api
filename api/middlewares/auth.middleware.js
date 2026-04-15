@@ -13,7 +13,6 @@ export const protect = async (req, res, next) => {
         message: "Invalid token",
       });
     }
-    console.log(decoded, "test");
     req.user = decoded;
     next();
   } catch (err) {
