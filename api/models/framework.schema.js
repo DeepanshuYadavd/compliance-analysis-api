@@ -21,6 +21,10 @@ const frameworkSchema = new mongoose.Schema(
       upperCase: true,
     },
     description: String,
+    version: {
+      type: String,
+      default: "1.0"
+    },
     authority: {
       type: String,
     },

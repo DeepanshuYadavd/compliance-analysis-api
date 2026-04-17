@@ -9,7 +9,7 @@ export const signup = async (req, res, next) => {
         message: "All fields are required",
       });
     }
- 
+
     const isUserExist = await Auth.findOne({ email: email });
     if (isUserExist) {
       return res.status(400).json({
@@ -56,7 +56,7 @@ export const signin = async (req, res, next) => {
     }
 
     //  token generation
-    const token = await genToken(user._id, user.userName);
+    const token = await genToken(user._id, user.userName, user.role);
 
     return res
       .cookie("token", token, {
