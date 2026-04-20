@@ -23,7 +23,7 @@ const frameworkSchema = new mongoose.Schema(
     description: String,
     version: {
       type: String,
-      default: "1.0"
+      default: "1.0",
     },
     authority: {
       type: String,
@@ -42,7 +42,7 @@ const frameworkSchema = new mongoose.Schema(
         requirementText: String,
         mandatory: {
           type: Boolean,
-          deafult: true,
+          default: true,
         },
 
         riskLevel: {
