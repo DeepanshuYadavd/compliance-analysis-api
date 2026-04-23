@@ -36,3 +36,19 @@ export const isAdmin = async (req, res, next) => {
     });
   }
 };
+
+export const isUser = async (req, res, next) => {
+  try {
+    if (req.user.role !== "user") {
+      return res.status(403).json({
+        message: "Access Denied",
+      });
+    }
+    next();
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+

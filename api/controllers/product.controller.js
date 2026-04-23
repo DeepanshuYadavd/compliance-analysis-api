@@ -2,10 +2,49 @@ import { Product } from "../models/products.schema.js";
 
 export const createProduct = async (req, res, next) => {
   try {
-    console.log(req.body);
-    console.log(req.files);
-    return res.status(200).json({
-      message: "khush reh",
+    const {
+      productName,
+      productCode,
+      description,
+      productType,
+      company,
+      createdBy,
+      complianceStatus,
+      complianceScore,
+      deviceClass,
+      intendedUse,
+      approvals,
+      market,
+    } = req.body;
+
+    const regulatory = {
+      deviceClass,
+      intendedUse,
+      market: JSON.parse(market),
+      approvals: JSON.parse(approvals),
+    };
+
+    const images = req.files?.map((img) => ({
+      url: img.path,
+      publicId: img.filename,
+    }));
+
+    const product = await Product.create({
+      productName,
+      productCode,
+      description,
+      productType,
+      company,
+      createdBy,
+      complianceStatus,
+      complianceScore,
+      regulatory,
+      images,
+    });
+
+    return res.status(201).json({
+      message: "Product created successfuly",
+      data: product,
     });
   } catch (err) {
     return res.status(500).json({

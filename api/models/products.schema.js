@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 import { randomUUID } from "crypto";
 
 const productSchema = new mongoose.Schema(
-  {
-    uuid: {
-      type: String,
+  { 
+    uuid: {   
+      type: String, 
       default: () => randomUUID(),
       unique: true,
       index: true,
@@ -44,7 +44,6 @@ const productSchema = new mongoose.Schema(
       {
         url: String,
         publicId: String,
-        label: String,
       },
     ],
     //  regulatory:
