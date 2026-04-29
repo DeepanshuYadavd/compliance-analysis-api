@@ -5,12 +5,22 @@ import authrouter from "./api/routes/auth.routes.js";
 import organizationRouter from "./api/routes/organization.routes.js";
 import frameworkRouter from "./api/routes/framework.route.js";
 import productRoute from "./api/routes/product.routes.js";
+import cors from "cors";
 dotenv.config();
 const app = express();
 
 //  middleware:
 app.use(express.json());
 app.use(cookieParser());
+
+//  cors:
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  }),
+);
 
 //  routes
 app.use("/api/auth", authrouter);
