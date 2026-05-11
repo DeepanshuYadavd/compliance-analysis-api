@@ -52,3 +52,17 @@ export const createProduct = async (req, res, next) => {
     });
   }
 };
+
+export const getProductsByCompany = async (req, res) => {
+  try {
+    const { companyId } = req.params;
+    const products = await Product.find({ company: companyId });
+    return res.status(200).json({
+      data: products
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message
+    });
+  }
+};
