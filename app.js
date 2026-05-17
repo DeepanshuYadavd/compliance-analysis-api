@@ -5,6 +5,7 @@ import authrouter from "./api/routes/auth.routes.js";
 import organizationRouter from "./api/routes/organization.routes.js";
 import frameworkRouter from "./api/routes/framework.route.js";
 import productRoute from "./api/routes/product.routes.js";
+import complianceRoute from "./api/routes/compliance.routes.js";
 import cors from "cors";
 dotenv.config();
 const app = express();
@@ -12,7 +13,7 @@ const app = express();
 //  cors:
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "http://localhost:5174"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   }),
@@ -26,5 +27,6 @@ app.use("/api/auth", authrouter);
 app.use("/api/organization", organizationRouter);
 app.use("/api/framework", frameworkRouter);
 app.use("/api/product", productRoute);
+app.use("/api/compliance", complianceRoute);
 
 export default app;

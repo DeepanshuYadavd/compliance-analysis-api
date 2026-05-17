@@ -8,7 +8,6 @@ export const createProduct = async (req, res, next) => {
       description,
       productType,
       company,
-      createdBy,
       complianceStatus,
       complianceScore,
       deviceClass,
@@ -37,7 +36,7 @@ export const createProduct = async (req, res, next) => {
       description,
       productType,
       company,
-      createdBy,
+      createdBy: req.user.id,
       complianceStatus,
       complianceScore,
       regulatory,
@@ -58,13 +57,30 @@ export const createProduct = async (req, res, next) => {
 export const getProductsByCompany = async (req, res) => {
   try {
     const { companyId } = req.params;
-    const products = await Product.find({ company: companyId });
+    const products = await Product.find({
+      company: companyId,
+      createdBy: req.user.id,
+    });
     return res.status(200).json({
-      data: products
+      data: products,
     });
   } catch (err) {
     return res.status(500).json({
-      message: err.message
+      message: err.message,
     });
   }
 };
+
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ isActive: true });
+    return res.status(200).json({
+      data: products,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+

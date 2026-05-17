@@ -51,7 +51,7 @@ export const createOrganization = async (req, res, next) => {
 //  read
 export const getAllCompanies = async (req, res, next) => {
   try {
-    const companies = await Organization.find();
+    const companies = await Organization.find({ createdBy: req.user.id });
     if (!companies || companies.length === 0) {
       return res.status(400).json({
         message: "No Company available",
